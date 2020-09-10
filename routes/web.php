@@ -13,17 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('main');
+Route::get('/', 'MoñoController@index')->name('main');
 
-Route::get('/prueba', function () {
-    return 'hola mundo';
-});
+Route::get('/web.php', 'MoñoController@index')->name('web.php.index');
+
+
+Route::get('/prueba', 'LuisController@index')->name('pueba.index');
 
 Route::get('/prueba2', function () {
     return 'hola desde mi ruta prueba2';
 });
+
+Route::get('/products', 'ProductController@index');
+
+Route::get('/products/{product}', 'ProductController@show');
 
 Route::get('/prueba3', function () {
     return 'hola desde mi ruta prueba 3';
@@ -64,3 +67,11 @@ Route::get('/prueba10', function () {
 Route::get('productos', function () {
     return 'la sala esta sola';
 })->name('hola saludos gente');
+
+Route::get('productos', function () {
+    return 'cuesta mucgo las verduras';
+})->name('productos.index');
+
+Route::get('productos1/{produc}', function ($produc) {
+    return "cuentame cuanto cuesta {$produc}";
+})->name('produc.indesx');
