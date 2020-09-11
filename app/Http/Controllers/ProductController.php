@@ -10,17 +10,16 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::all();
-        // $products = DB::table('products')->get();
-        return $products;
-        // dd($products);
 
-        return view('products.index');
+
+        return view('products.index')->with([
+            'productos' => Product::paginate(9),
+        ]);
     }
 
     public function create()
     {
-        return 'this is the form to create a product from CONTROLLER';
+        return view('products.create');
     }
 
     public function store()
@@ -30,10 +29,19 @@ class ProductController extends Controller
     public function show($product)
     {
         // $products = DB::table('products')->where('id', $product)->get();
-        $product = product::findFail($product);
-        // $products = DB::table('products')->find($product);
-        dd($product);
+        $product = product::findOrFail($product);
+        // $product = DB::table('products')->find($product);
+        // dd($product);
 
-        return view('products.show');
+        return view('products.show')->with([
+            'product' => $product,
+            // 'html' => "<h2>subtitle</h2>",
+
+        ]);
+    }
+
+    public function edit($product)
+    {
+        return "showing the form to edit the product with id {$product}";
     }
 }

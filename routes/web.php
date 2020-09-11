@@ -13,23 +13,66 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+--------------------------------------------------------------------------------------
+                          RUTAS DEL VIDEO
+--------------------------------------------------------------------------------------
+*/
+
+Route::get('/', 'ProductController@index')->name('main');
+
+Route::get('/products', 'ProductController@index')->name('products.index');
+
+Route::get('/products/create', 'ProductController@create')->name('products.create');
+
+Route::post('/products', 'ProductController@store')->name('products.store');
+
+Route::get('/products/{product}', 'ProductController@show')->name('products.show');
+
+Route::get('products/{product}/edit', 'ProductController@edit')->name('products.edit');
+
+Route::match(['put', 'patch'], 'products/{product}', 'ProductController@update')->name('products.update');
+
+Route::delete('products/{product}', 'ProductController@destroy')->name('products.destroy');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+--------------------------------------------------------------------
+AQUIU ESTOY HACIENDO MIS EJEMPLOS
+---------------------------------------------------------------------
+*/
+
+
 Route::get('/', 'MoñoController@index')->name('main');
 
 Route::get('/web.php', 'MoñoController@index')->name('web.php.index');
-
 
 Route::get('/prueba', 'LuisController@index')->name('pueba.index');
 
 Route::get('/prueba2', function () {
     return 'hola desde mi ruta prueba2';
-});
-
-Route::get('/products', 'ProductController@index');
-
-Route::get('/products/{product}', 'ProductController@show');
-
-Route::get('/prueba3', function () {
-    return 'hola desde mi ruta prueba 3';
 });
 
 Route::get('/prueba4', function () {
