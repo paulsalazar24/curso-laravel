@@ -2,9 +2,10 @@
 
 @section('contenido')
 
-<h1>Create a product</h1>
+<h1>venta de lanza chastifol</h1>
 
 <form method="POST" action="{{ route('products.store') }}">
+    @csrf
     <div class="form-row">
         <label>Title</label>
         <input class="form-control" type="text" name="title" required>
@@ -23,13 +24,18 @@
     </div>
     <div class="form-row">
         <label>Status</label>
-        <select name="" id="">
+        <select class="custom-select" name="status" required>
 
             <option value="" selected>select......</option>
             <option value="available">Available</option>
             <option value="unaavailable">UnaAvailable</option>
 
         </select>
+    </div>
+    {{-- se puede observar como son los comando para crear un boton de creacion --}}
+    <div class="form-row">
+<button type="subimit" class="btn btn-primary btn-lg">create product</button>
+
     </div>
 </form>
 
