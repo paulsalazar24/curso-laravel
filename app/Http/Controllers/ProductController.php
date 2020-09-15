@@ -24,6 +24,27 @@ class ProductController extends Controller
 
     public function store()
     {
+        $rules = [
+            'title' => ['required', 'max:255'],
+            'description' => ['required', 'max:1000'],
+            'price' => ['required', 'min:1'],
+            'stock' => ['required', 'min:0'],
+            'status' => ['required', 'in:available, unavailable'],
+        ];
+
+        request()->validate($rules);
+
+
+        if (request()->status == 'available' && request()->stock == 0) {
+            session()->flash('error', 'If available must stock');
+
+            return redirect()
+                ->back()
+                ->withInput(request()->all());
+        }
+
+        // session()->forget('error');
+
         // $product = Product::create([
         //     'title' => request()->title,
         //     'description' => request()->description,
@@ -32,9 +53,9 @@ class ProductController extends Controller
         //     'status' => request()->status,
         // ]);
         $product = Product::create(request()->all());
+        session()->flash('success', "the new product with id {$product->id} was created");
 
-
-        return $product;
+        return redirect()->route('products.index');
     }
 
     public function show($product)
@@ -60,11 +81,22 @@ class ProductController extends Controller
 
     public function update($product)
     {
+        $rules = [
+            'title' => ['required', 'max:255'],
+            'description' => ['required', 'max:1000'],
+            'price' => ['required', 'min:1'],
+            'stock' => ['required', 'min:0'],
+            'status' => ['required', 'in:available, unavailable'],
+        ];
+
+        request()->validate($rules);
+
+
         $product = Product::findOrFail($product);
 
         $product->update(request()->all());
 
-        return $product;
+        return redirect()->route('products.index');
     }
 
 
@@ -72,6 +104,6 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($product);
         $product->delete();
-        return $product;
+        return redirect()->route('products.index');
     }
 }
